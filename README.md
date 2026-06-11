@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI-Powered Alcohol Label Verification App (Prototype)
 
-## Getting Started
+Standalone decision-support prototype for compliance agents reviewing alcohol beverage labels.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Mocked extraction data (no API integration)
+- No authentication
+- No database
+
+## What this prototype does
+
+1. Upload one label image.
+2. Enter application values manually (or load demo data).
+3. Run mock analysis with static extracted JSON.
+4. Compare extracted values against submitted values.
+5. Review field-by-field comparison and a dedicated Government Warning validation card.
+
+This app is a decision-support prototype only and does not provide final legal determination.
+
+## Project structure
+
+```
+app/
+	page.tsx
+
+components/
+	UploadForm.tsx
+	UploadSection.tsx
+	ApplicationForm.tsx
+	ResultsPanel.tsx
+	WarningValidationCard.tsx
+	WarningCheckCard.tsx
+
+lib/
+	normalize.ts
+	compare.ts
+
+utils/
+	normalization.ts
+	comparison.ts
+
+types/
+	label.ts
+
+data/
+	mockData.ts
+	mockExtractedLabel.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open http://localhost:3000.
 
-## Learn More
+## Validation commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Manual QA flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Click Use demo data.
+2. Upload any sample label image.
+3. Click Run mock analysis.
+4. Confirm table shows Match, Likely Match, Mismatch, Missing, or Needs Human Review.
+5. Confirm Government Warning Validation shows:
+	 - Pass/Fail status
+	 - Confidence percentage
+	 - Exact warning text check
+	 - Uppercase "GOVERNMENT WARNING" check
+	 - Validation notes
 
-## Deploy on Vercel
+## API keys and environment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+No API keys are required. No environment variables are required for the current mock workflow.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+This repository is Vercel-friendly and can be deployed directly as a standard Next.js application.
