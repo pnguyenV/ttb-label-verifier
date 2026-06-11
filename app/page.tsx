@@ -10,7 +10,7 @@ import {
   MOCK_EXTRACTED_FIELDS,
 } from "@/data/mockData";
 import { ApplicationData, AnalysisOutput, FieldKey } from "@/types/label";
-import { buildAnalysisOutput } from "@/utils/comparison";
+import { buildAnalysisOutput } from "@/lib/compare";
 
 export default function Home() {
   const [applicationData, setApplicationData] =
