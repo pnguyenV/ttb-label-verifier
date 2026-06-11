@@ -1,7 +1,6 @@
 # AI-Powered Alcohol Label Verification App (Prototype)
 
 Standalone decision-support prototype for compliance agents reviewing alcohol beverage labels.
-(Doc for this project: https://docs.google.com/document/d/1Pw51TQ1d8jmL2Q7xyygVTdVnu_FsArVyb8S3NlGQMuM/edit?tab=t.0)
 
 ## Stack
 
