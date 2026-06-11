@@ -7,7 +7,7 @@ interface UploadSectionProps {
   previewUrl: string | null;
   isAnalyzing: boolean;
   onFileChange: (file: File | null) => void;
-  onRunMockAnalysis: () => void;
+  onRunAnalysis: () => void;
 }
 
 export default function UploadSection({
@@ -15,7 +15,7 @@ export default function UploadSection({
   previewUrl,
   isAnalyzing,
   onFileChange,
-  onRunMockAnalysis,
+  onRunAnalysis,
 }: UploadSectionProps) {
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -67,11 +67,11 @@ export default function UploadSection({
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <button
           type="button"
-          onClick={onRunMockAnalysis}
+          onClick={onRunAnalysis}
           className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isAnalyzing}
         >
-          {isAnalyzing ? "Running mock analysis..." : "Run mock analysis"}
+          {isAnalyzing ? "Running analysis..." : "Run analysis"}
         </button>
         <p className="text-sm text-slate-600">
           {fileName ? `Selected file: ${fileName}` : "No file selected"}

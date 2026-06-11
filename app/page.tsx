@@ -9,19 +9,71 @@ import {
   EMPTY_APPLICATION_DATA,
   MOCK_EXTRACTED_FIELDS,
 } from "@/data/mockData";
-import { ApplicationData, AnalysisOutput, FieldKey } from "@/types/label";
+import {
+  ApplicationData,
+  AnalysisOutput,
+  ExtractedFieldMap,
+  FieldKey,
+} from "@/types/label";
 import { buildAnalysisOutput } from "@/lib/compare";
+
+const EXTRACTION_KEYS: FieldKey[] = [
+  "brandName",
+  "classTypeDesignation",
+  "alcoholContent",
+  "netContents",
+  "producerBottlerName",
+  "countryOfOrigin",
+  "governmentWarning",
+];
+
+function toExtractedFieldMap(payload: unknown): ExtractedFieldMap {
+  if (!payload || typeof payload !== "object") {
+    throw new Error("Received invalid extraction payload.");
+  }
+
+  const candidate = payload as Record<string, unknown>;
+  const extracted = {} as ExtractedFieldMap;
+
+  for (const key of EXTRACTION_KEYS) {
+    const entry = candidate[key];
+
+    if (!entry || typeof entry !== "object") {
+      extracted[key] = null;
+      continue;
+    }
+
+    const valueCandidate = (entry as Record<string, unknown>).value;
+    const confidenceCandidate = (entry as Record<string, unknown>).confidence;
+
+    extracted[key] = {
+      value: typeof valueCandidate === "string" ? valueCandidate : "",
+      confidence:
+        typeof confidenceCandidate === "number" &&
+        Number.isFinite(confidenceCandidate)
+          ? Math.max(0, Math.min(1, confidenceCandidate))
+          : 0,
+    };
+  }
+
+  return extracted;
+}
 
 export default function Home() {
   const [applicationData, setApplicationData] =
     useState<ApplicationData>(EMPTY_APPLICATION_DATA);
   const [fileName, setFileName] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResults, setAnalysisResults] = useState<AnalysisOutput | null>(
     null,
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const allowMockFallback =
+    process.env.NEXT_PUBLIC_USE_MOCK_EXTRACTION === "true" ||
+    process.env.NODE_ENV !== "production";
 
   useEffect(() => {
     return () => {
@@ -59,17 +111,19 @@ export default function Home() {
     if (!file) {
       setFileName(null);
       setPreviewUrl(null);
+      setSelectedFile(null);
       return;
     }
 
     const localUrl = URL.createObjectURL(file);
     setFileName(file.name);
     setPreviewUrl(localUrl);
+    setSelectedFile(file);
     setErrorMessage(null);
   };
 
-  const runMockAnalysis = async () => {
-    if (!fileName) {
+  const runAnalysis = async () => {
+    if (!selectedFile) {
       setErrorMessage("Please upload one label image before running analysis.");
       return;
     }
@@ -78,15 +132,41 @@ export default function Home() {
     setErrorMessage(null);
 
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 900);
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      const response = await fetch("/api/extract", {
+        method: "POST",
+        body: formData,
       });
 
-      const output = buildAnalysisOutput(applicationData, MOCK_EXTRACTED_FIELDS);
+      const body = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          typeof body?.error === "string"
+            ? body.error
+            : "Unable to extract fields from the uploaded image.",
+        );
+      }
+
+      const extractedFields = toExtractedFieldMap(body);
+      const output = buildAnalysisOutput(applicationData, extractedFields);
       setAnalysisResults(output);
-    } catch {
+    } catch (error) {
+      if (allowMockFallback) {
+        const output = buildAnalysisOutput(applicationData, MOCK_EXTRACTED_FIELDS);
+        setAnalysisResults(output);
+        setErrorMessage(
+          "AI extraction is currently unavailable. Showing development fallback results.",
+        );
+        return;
+      }
+
       setErrorMessage(
-        "Unable to run mock analysis right now. Please try again in a moment.",
+        error instanceof Error
+          ? error.message
+          : "Unable to run extraction right now. Please try again in a moment.",
       );
     } finally {
       setIsAnalyzing(false);
@@ -104,7 +184,8 @@ export default function Home() {
         </h1>
         <p className="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">
           Compare application values against fields extracted from a label image.
-          This prototype uses mocked extraction output for fast review workflows.
+          This prototype extracts label fields with AI and runs the existing
+          comparison workflow end to end.
         </p>
         <div className="mt-3 inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
           {completionHint}
@@ -118,7 +199,7 @@ export default function Home() {
             previewUrl={previewUrl}
             isAnalyzing={isAnalyzing}
             onFileChange={handleFileChange}
-            onRunMockAnalysis={runMockAnalysis}
+            onRunAnalysis={runAnalysis}
           />
           <ApplicationForm
             data={applicationData}
