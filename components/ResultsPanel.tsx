@@ -67,7 +67,7 @@ export default function ResultsPanel({
         : null;
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section className="rounded-2xl border border-slate-200 border-t-4 border-t-[#003A70] bg-white p-5 shadow-sm">
       <div className="mb-4">
         <h2 className="text-lg font-semibold text-slate-900">
           3. Results and Analysis

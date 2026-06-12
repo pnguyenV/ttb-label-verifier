@@ -18,7 +18,7 @@ export default function UploadSection({
   onRunAnalysis,
 }: UploadSectionProps) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section className="rounded-2xl border border-slate-200 border-t-4 border-t-[#003A70] bg-white p-5 shadow-sm">
       <div className="mb-4 flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-slate-900">1. Upload label image</h2>
@@ -88,7 +88,7 @@ export default function UploadSection({
         <button
           type="button"
           onClick={onRunAnalysis}
-          className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-lg bg-[#004C97] px-4 py-2 text-sm font-medium text-white hover:bg-[#003A70] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isAnalyzing}
         >
           {isAnalyzing ? "Running analysis..." : "Run analysis"}

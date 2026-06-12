@@ -183,15 +183,15 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
-      <header className="mb-6 rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
+      <header className="mb-6 rounded-lg border border-[#163E73] bg-[#003A70] px-5 py-7 shadow-sm sm:px-6 sm:py-8">
 
-        <h1 className="mt-1 text-2xl font-semibold text-slate-900 sm:text-3xl">
+        <h1 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">
           Automated Label Verification Tool
         </h1>
-        <p className="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">
+        <p className="mt-2 max-w-3xl text-sm text-white sm:text-base">
           A 3-step workflow to compare application values against uploaded label images
         </p>
-        <div className="mt-3 inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+        <div className="mt-4 inline-flex rounded-md border border-white/25 bg-white/10 px-2.5 py-1 text-xs font-medium text-white">
           {completionHint}
         </div>
       </header>
