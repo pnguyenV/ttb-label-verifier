@@ -109,15 +109,15 @@ Real extraction requires an OpenAI API key.
 
 Set these in your environment:
 
-- `OPENAI_API_KEY` (required for AI extraction)
+- `OPENAI_API_KEY` (required for AI extraction text value from the uploaded images)
 - `OPENAI_VISION_MODEL` (optional, defaults in route)
 - `NEXT_PUBLIC_USE_MOCK_EXTRACTION` (optional; set to `true` to force mock fallback mode)
 
-In local development, add these to `.env.local`.
+In local development, add the API KEY to `.env.local`.
 
 Behavior:
 
-- Production expects real extraction (valid `OPENAI_API_KEY`).
+- Production expects real extraction (a valid `OPENAI_API_KEY`).
 - Non-production allows mock fallback if extraction fails.
 
 ## Deployment

@@ -100,6 +100,19 @@ Examples:
 "45% Alc./Vol." vs "45% Alc./Vol." → Match
 "45%" vs "40%" → Mismatch
 
+### Prototype Comparison Limitations
+
+This proof-of-concept focuses on demonstrating AI extraction and comparison workflows rather than implementing a comprehensive normalization library for all possible field variations.
+
+For Phase 1, normalization is intentionally limited to common formatting differences such as capitalization, punctuation, spacing, and selected numeric/unit formats.
+
+The prototype does **not** currently maintain canonical mappings for geographic or regulatory equivalencies. For example:
+
+* "USA" and "United States"
+* "U.S.A." and "United States"
+
+may be reported as a mismatch or require human review even though they represent the same country.
+
 ### Government Warning Validation
 The system shall validate the Government Health Warning Statement independently from other fields.
 
@@ -145,11 +158,25 @@ Any deviation shall be flagged for reviewer attention.
 - Production deployment
 - Audit trails, COLA integration, FedRAMP details
 
+### Prototype Simplifications
+
+To keep the scope appropriate for a proof-of-concept, the system does not attempt to resolve all semantic equivalencies between extracted and application values.
+
+Examples include:
+
+* Country-name aliases
+* Address abbreviations
+* Regulatory terminology variations
+* Organization-name alias matching
+
+These scenarios remain subject to human review in Phase 1.
+
 ## Future Enhancements
 
 - Batch processing (upload many images and compare them)
 - Workflow queues
 - Supervisor dashboards
+- Country and regulatory-reference normalization (for example: USA ↔ United States, common address abbreviations, and regulatory terminology equivalencies)
 - COLA integration
 - FedRAMP-aligned deployment
 
