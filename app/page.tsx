@@ -17,6 +17,8 @@ import {
 } from "@/types/label";
 import { buildAnalysisOutput } from "@/lib/compare";
 
+type ExtractionSource = "openai" | "mock-fallback";
+
 const EXTRACTION_KEYS: FieldKey[] = [
   "brandName",
   "classTypeDesignation",
@@ -70,6 +72,8 @@ export default function Home() {
     null,
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [extractionSource, setExtractionSource] =
+    useState<ExtractionSource | null>(null);
 
   const allowMockFallback =
     process.env.NEXT_PUBLIC_USE_MOCK_EXTRACTION === "true" ||
@@ -130,6 +134,7 @@ export default function Home() {
 
     setIsAnalyzing(true);
     setErrorMessage(null);
+    setExtractionSource(null);
 
     try {
       const formData = new FormData();
@@ -153,16 +158,19 @@ export default function Home() {
       const extractedFields = toExtractedFieldMap(body);
       const output = buildAnalysisOutput(applicationData, extractedFields);
       setAnalysisResults(output);
+      setExtractionSource("openai");
     } catch (error) {
       if (allowMockFallback) {
         const output = buildAnalysisOutput(applicationData, MOCK_EXTRACTED_FIELDS);
         setAnalysisResults(output);
+        setExtractionSource("mock-fallback");
         setErrorMessage(
           "AI extraction is currently unavailable. Showing development fallback results.",
         );
         return;
       }
 
+      setExtractionSource(null);
       setErrorMessage(
         error instanceof Error
           ? error.message
@@ -208,6 +216,7 @@ export default function Home() {
           results={analysisResults}
           isAnalyzing={isAnalyzing}
           errorMessage={errorMessage}
+          extractionSource={extractionSource}
         />
       </main>
     </div>

@@ -5,6 +5,7 @@ interface ResultsPanelProps {
   results: AnalysisOutput | null;
   isAnalyzing: boolean;
   errorMessage: string | null;
+  extractionSource: "openai" | "mock-fallback" | null;
 }
 
 function categoryStyles(category: ComparisonCategory): string {
@@ -53,10 +54,17 @@ export default function ResultsPanel({
   results,
   isAnalyzing,
   errorMessage,
+  extractionSource,
 }: ResultsPanelProps) {
   const warningValidation = results?.warningValidation;
   const nonWarningComparisons =
     results?.comparisons.filter((item) => item.key !== "governmentWarning") ?? [];
+  const extractionSourceLabel =
+    extractionSource === "openai"
+      ? "Extraction Source: OpenAI Vision"
+      : extractionSource === "mock-fallback"
+        ? "Extraction Source: Mock Data (Fallback)"
+        : null;
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -68,11 +76,14 @@ export default function ResultsPanel({
           This prototype is a decision-support tool. Final legal determination
           requires human compliance review.
         </p>
+        {!isAnalyzing && results && extractionSourceLabel && (
+          <p className="mt-2 text-xs font-medium text-slate-500">{extractionSourceLabel}</p>
+        )}
       </div>
 
       {isAnalyzing && (
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900">
-          Running mock extraction and comparison...
+          Analyzing label image and comparing fields...
         </div>
       )}
 
@@ -85,7 +96,7 @@ export default function ResultsPanel({
       {!isAnalyzing && !errorMessage && !results && (
         <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
           No analysis yet. Upload a label image, enter application values, and run
-          mock analysis.
+          analysis.
         </div>
       )}
 
