@@ -70,11 +70,10 @@ export default function ResultsPanel({
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="mb-4">
         <h2 className="text-lg font-semibold text-slate-900">
-          3. Review extracted fields and comparison results
+          3. Results and Analysis
         </h2>
         <p className="text-sm text-slate-600">
-          This prototype is a decision-support tool. Final legal determination
-          requires human compliance review.
+          This is a decision‑support tool. Final decisions must be made by a human reviewer.
         </p>
         {!isAnalyzing && results && extractionSourceLabel && (
           <p className="mt-2 text-xs font-medium text-slate-500">{extractionSourceLabel}</p>

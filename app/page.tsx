@@ -186,10 +186,10 @@ export default function Home() {
       <header className="mb-6 rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
 
         <h1 className="mt-1 text-2xl font-semibold text-slate-900 sm:text-3xl">
-          Alcohol Label Verification App  -  Phase 1/Prototype
+          Automated Label Verification Tool
         </h1>
         <p className="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">
-          3 steps to comparing application values against a label image.
+          A 3-step workflow to compare application values against uploaded label images
         </p>
         <div className="mt-3 inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
           {completionHint}
