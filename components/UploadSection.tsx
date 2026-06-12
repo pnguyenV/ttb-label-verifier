@@ -7,6 +7,7 @@ interface UploadSectionProps {
   previewUrl: string | null;
   isAnalyzing: boolean;
   onFileChange: (file: File | null) => void;
+  onRunAnalysis?: () => Promise<void>;
 }
 
 export default function UploadSection({
@@ -14,6 +15,7 @@ export default function UploadSection({
   previewUrl,
   isAnalyzing,
   onFileChange,
+  onRunAnalysis,
 }: UploadSectionProps) {
   return (
     <section className="rounded-2xl border border-slate-200 border-t-4 border-t-[#003A70] bg-white p-5 shadow-sm">
