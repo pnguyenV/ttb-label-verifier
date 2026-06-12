@@ -425,6 +425,15 @@ Fallback extraction uses mocked values from [data/mockData.ts](/c:/OpenProjects/
 - environment is non-production, or
 - `NEXT_PUBLIC_USE_MOCK_EXTRACTION=true`.
 
+**Extraction Source Display:**
+
+The extraction source is displayed to users in the results header as a lightweight indicator:
+
+- On OpenAI success: `Extraction Source: OpenAI Vision`
+- On mock fallback: `Extraction Source: Mock Data (Fallback)`
+
+This transparency allows reviewers to understand whether results came from real AI extraction or development fallback data. The indicator is shown only when results are available and not during analysis.
+
 Important detail: the mocked brand value is:
 
 - `STONE'S THROW`
