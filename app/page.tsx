@@ -186,7 +186,7 @@ export default function Home() {
       <header className="mb-6 rounded-lg border border-[#163E73] bg-[#003A70] px-5 py-7 shadow-sm sm:px-6 sm:py-8">
 
         <h1 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">
-          Automated Label Verification Tool
+          AI-Powered Label Verification Tool
         </h1>
         <p className="mt-2 max-w-3xl text-sm text-white sm:text-base">
           A 3-step workflow to compare application values against uploaded label images
@@ -217,6 +217,8 @@ export default function Home() {
           isAnalyzing={isAnalyzing}
           errorMessage={errorMessage}
           extractionSource={extractionSource}
+          fileName={fileName}
+          onRunAnalysis={runAnalysis}
         />
       </main>
     </div>

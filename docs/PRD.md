@@ -1,6 +1,6 @@
 # Product Requirements Document (PRD)
 
-# AI-Powered Alcohol Label Verification App: Phase 1 (Proof of concept version)
+# AI-Powered Alcohol Label Verification App: Phase 1 (Proof of concept version, named as "AI-Powered Label Verification Tool")
 
 Last updated: 2026-06-11
 

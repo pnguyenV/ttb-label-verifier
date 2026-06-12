@@ -6,6 +6,8 @@ interface ResultsPanelProps {
   isAnalyzing: boolean;
   errorMessage: string | null;
   extractionSource: "openai" | "mock-fallback" | null;
+  fileName: string | null;
+  onRunAnalysis: () => void;
 }
 
 function categoryStyles(category: ComparisonCategory): string {
@@ -55,6 +57,8 @@ export default function ResultsPanel({
   isAnalyzing,
   errorMessage,
   extractionSource,
+  fileName,
+  onRunAnalysis,
 }: ResultsPanelProps) {
   const warningValidation = results?.warningValidation;
   const nonWarningComparisons =
@@ -93,9 +97,24 @@ export default function ResultsPanel({
       )}
 
       {!isAnalyzing && !errorMessage && !results && (
-        <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
-          No analysis yet. Upload a label image, enter application values, and run
-          analysis.
+        <div className="space-y-4">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+            No analysis yet. Upload a label image, enter application values, and run
+            analysis.
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <button
+              type="button"
+              onClick={onRunAnalysis}
+              className="rounded-lg bg-[#004C97] px-4 py-2 text-sm font-medium text-white hover:bg-[#003A70] disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isAnalyzing}
+            >
+              {isAnalyzing ? "Running analysis..." : "Run analysis"}
+            </button>
+            <p className="text-sm text-slate-600">
+              {fileName ? `Selected file: ${fileName}` : "No file selected"}
+            </p>
+          </div>
         </div>
       )}
 
