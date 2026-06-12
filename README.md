@@ -4,6 +4,8 @@ This repository contains a functional standalone prototype designed to evaluate 
 
 ![AI-Powered Label Verification Tool Dashboard Interface Preview](public/app-screenshot.png)
 
+> 💡 **Quick-Start Tip:** To evaluate the system without searching for sample files, the interface includes direct **Sample Label shortcuts** right below the upload area. Click *Label 1* or *Label 2* to instantly download valid test images.
+
 **Live System URL:** `https://ttb.myappnow.net`  
 **Core Specification:** [Product Requirements Document](docs/PRD.md)
 
