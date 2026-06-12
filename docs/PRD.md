@@ -2,6 +2,8 @@
 
 # AI-Powered Alcohol Label Verification App: Phase 1 (Proof of concept version)
 
+Last updated: 2026-06-11
+
 ## Executive Summary
 
 The Alcohol and Tobacco Tax and Trade Bureau (TTB) reviews approximately 150,000 alcohol label applications annually. A significant part of the review process is manually comparing information on the label artwork against submitted application data.
@@ -79,21 +81,20 @@ An example of what the output results look like.  Users can review and make fina
 
 
 ### Required Extraction Fields
-Brand Name
-Class/Type Designation
-Alcohol Content
-Net Contents
-Producer/Bottler Name
-Producer/Bottler Address
-Country of Origin
-Government Warning Statement
+- Brand Name
+- Class/Type Designation
+- Alcohol Content
+- Net Contents
+- Producer/Bottler Name
+- Country of Origin
+- Government Warning Statement
 
 ### Comparison Rules
-Match: values are equivalent after normalization.
-Likely Match: differences are limited to capitalization, punctuation, or spacing.
-Mismatch: values are materially different.
-Missing: a required value is not detected.
-Needs Human Review: confidence is insufficient for automated classification.
+Match: values are equivalent after field-specific comparison (normalization, and for selected fields numeric/unit parsing).
+Likely Match: values are strongly similar after normalization or are very close numerically.
+Mismatch: values are materially different after field-specific comparison.
+Missing: one or both compared values are blank.
+Needs Human Review: values partially overlap, or are close but outside strict tolerances.
 
 Examples:
 "STONE'S THROW" vs "Stone's Throw" → Likely Match
@@ -118,12 +119,16 @@ The system shall validate the Government Health Warning Statement independently 
 
 Validation shall include:
 
-* Presence of the warning statement.
-* Exact text matching against the required warning language.
-* Verification that "GOVERNMENT WARNING:" appears in uppercase.
-* Identification of missing, altered, or incomplete warning text.
+* Exact text matching between submitted application warning text and extracted warning text, after warning-specific normalization.
+* Verification that uppercase "GOVERNMENT WARNING" appears in extracted text.
+* A dedicated pass/fail warning validation result with confidence and notes.
 
 Any deviation shall be flagged for reviewer attention.
+
+Current prototype limitation:
+
+* The system does not yet validate against a canonical statutory warning source; it compares against the submitted application value.
+* The current heading check enforces uppercase words, but does not enforce colon formatting.
 
 ## Non-Functional Requirements
 
@@ -165,7 +170,6 @@ To keep the scope appropriate for a proof-of-concept, the system does not attemp
 Examples include:
 
 * Country-name aliases
-* Address abbreviations
 * Regulatory terminology variations
 * Organization-name alias matching
 

@@ -176,16 +176,12 @@ export default function Home() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
       <header className="mb-6 rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Phase 1 prototype
-        </p>
+
         <h1 className="mt-1 text-2xl font-semibold text-slate-900 sm:text-3xl">
-          AI-Powered Alcohol Label Verification App
+          Alcohol Label Verification App  -  Phase 1/Prototype
         </h1>
         <p className="mt-2 max-w-3xl text-sm text-slate-600 sm:text-base">
-          Compare application values against fields extracted from a label image.
-          This prototype extracts label fields with AI and runs the existing
-          comparison workflow end to end.
+          3 steps to comparing application values against a label image.
         </p>
         <div className="mt-3 inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
           {completionHint}

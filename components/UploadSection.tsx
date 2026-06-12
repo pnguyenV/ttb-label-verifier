@@ -45,6 +45,26 @@ export default function UploadSection({
       <p id="upload-help" className="mt-2 text-xs text-slate-500">
         Supported formats: JPG, PNG, WEBP. Maximum recommended size: 10MB.
       </p>
+      <p className="mt-1 text-xs text-slate-500">
+        Sample Labels:{" "}
+        <a
+          href="/sample-images/stoneThrowWine.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-slate-800 hover:underline"
+        >
+          Label 1
+        </a>{" "}
+        |{" "}
+        <a
+          href="/sample-images/stoneThrowWine1.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-slate-800 hover:underline"
+        >
+          Label 2
+        </a>
+      </p>
 
       <div className="mt-4 min-h-44 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
         {previewUrl ? (

@@ -1,40 +1,24 @@
 # AI-Powered Alcohol Label Verification App (Prototype)
 
-Standalone decision-support prototype for compliance agents reviewing alcohol beverage labels.
+This App supports compliance agents in reviewing alcohol beverage labels.
 
-Related docs:
-- PRD: docs/PRD.md
-- Agent guide: docs/AI_AGENT_GUIDE.md
-- Comparison audit: docs/COMPARISON_AUDIT.md
+Related docs: PRD: docs/PRD.md
 
-## Technology stack
+## How this App works
 
-- Next.js App Router
-- TypeScript
-- React
-- Tailwind CSS
-- Vitest
-- App Router API route for extraction: app/api/extract/route.ts
-- OpenAI Responses API (vision-capable model)
-- Mock extracted-data fallback for development
-- No authentication
-- No database
-
-## What this prototype does
-
-1. Upload one label image.
-2. Enter application values manually (or load demo data).
-3. Run analysis by sending the image to /api/extract.
-4. Compare extracted values against submitted values.
-5. Review field-by-field comparison and a dedicated Government Warning validation card.
+1. Click "Choose File" to **upload a label image** (alcohol beverage label).
+2. Enter **Application Values** manually (or click to load demo data, e.g. Brand Name = Stone's; Net contents=750 mL ...etc).
+3. Click **"Run analysis"**
+4. The App will compare extracted values (from the uploaded image) against submitted values (Application Values).
+5. **Results pane**: will show field-by-field comparison and its result, e.g. matched, not matched, need human review..etc.
 
 If extraction is unavailable, the app can fall back to mock extracted values in non-production (or when forced by env var).
 
 The extraction route reads model output from the OpenAI Responses API path output[0].content[0].text and parses it into the extracted-field contract used by the app.
 
-This app is a decision-support prototype only and does not provide final legal determination.
+This app is a decision-support to the human agent only, the agent makes final decision.
 
-## Current extracted/comparison fields
+## Extracted/comparison fields
 
 - Brand name
 - Class/type designation
@@ -44,36 +28,7 @@ This app is a decision-support prototype only and does not provide final legal d
 - Country of origin
 - Government warning statement
 
-## Project structure
-
-app/
-- page.tsx
-- api/extract/route.ts
-
-components/
-- UploadForm.tsx
-- UploadSection.tsx
-- ApplicationForm.tsx
-- ResultsPanel.tsx
-- WarningValidationCard.tsx
-- WarningCheckCard.tsx
-
-lib/
-- normalize.ts
-- compare.ts
-
-utils/
-- normalization.ts
-- comparison.ts
-
-types/
-- label.ts
-
-data/
-- mockData.ts
-- mockExtractedLabel.ts
-
-## Run locally
+## How to run it locally in dev environment
 
 1. Install dependencies:
 
@@ -122,6 +77,48 @@ Environment variables:
 Behavior:
 - Production expects real extraction (valid OPENAI_API_KEY).
 - Non-production allows mock fallback if extraction fails.
+
+## Technology stack
+
+- Next.js App Router
+- TypeScript
+- React
+- Tailwind CSS
+- Vitest
+- App Router API route for extraction: app/api/extract/route.ts
+- OpenAI Responses API (vision-capable model)
+- Mock extracted-data fallback for development
+- No authentication
+- No database
+
+## Project structure
+
+app/
+- page.tsx
+- api/extract/route.ts
+
+components/
+- UploadForm.tsx
+- UploadSection.tsx
+- ApplicationForm.tsx
+- ResultsPanel.tsx
+- WarningValidationCard.tsx
+- WarningCheckCard.tsx
+
+lib/
+- normalize.ts
+- compare.ts
+
+utils/
+- normalization.ts
+- comparison.ts
+
+types/
+- label.ts
+
+data/
+- mockData.ts
+- mockExtractedLabel.ts
 
 ## Deployment
 

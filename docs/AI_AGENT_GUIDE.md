@@ -17,6 +17,8 @@ The app does five things:
 4. Compares submitted application values against extracted values.
 5. Displays comparison outcomes and a separate government warning validation result.
 
+Current field contract is seven fields: brandName, classTypeDesignation, alcoholContent, netContents, producerBottlerName, countryOfOrigin, governmentWarning.
+
 This is a **decision-support prototype**, not a legal determination engine.
 
 ## Tech Stack
@@ -373,8 +375,13 @@ Two related things happen:
 
 `validateGovernmentWarning` checks:
 
-- exact warning text equivalence after warning-specific normalization
-- presence of uppercase `GOVERNMENT WARNING`
+- exact warning text equivalence between submitted application value and extracted value, after warning-specific normalization
+- presence of uppercase `GOVERNMENT WARNING` in extracted text
+
+Current limitation:
+
+- this does not validate against a canonical statutory warning source
+- heading check does not enforce `GOVERNMENT WARNING:` colon formatting
 
 It returns:
 
