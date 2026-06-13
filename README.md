@@ -4,47 +4,54 @@ This repository contains a functional standalone prototype designed to evaluate 
 
 ![AI-Powered Label Verification Tool Dashboard Interface Preview](public/app-screenshot.png)
 
-> 💡 **Quick-Start Tip:** To evaluate the system without searching for sample files, the interface includes direct **Sample Label shortcuts** right below the upload area. Click *Label 1* or *Label 2* to instantly download valid test images.
+<br>
+
+### 💡 Quick-Start Tip: 
+The App includes 2 **Sample Label shortcuts** right below the upload area. <br>Click *Label 1* or *Label 2* to instantly download test label images.
 
 **Live System URL:** `https://ttb.myappnow.net`  
 **Core Specification:** [Product Requirements Document](docs/PRD.md)
+<br>
 
 ## 🎯 Summary
 
-This system serves as a **Human-in-the-Loop Decision Support Tool**. It automates the repetitive extraction and textual tasks, highlighting discrepancies so human compliance experts can focus on complex edge-case evaluations and final determinations.
+This system serves as a **Human-in-the-Loop Decision Support Tool**. It automates the repetitive extraction and textual tasks, highlighting discrepancies so human compliance experts can focus on complex edge-case evaluations and final determinations. 
+<br>
+<br>
 
-## 🏗️ Technical Architecture & Design Decisions
+## Technical Architecture & Design Decisions
 
-The prototype is built utilizing a modern, decoupled, and lightweight architecture designed for rapid iteration and transparent execution.
+The prototype uses a simple, lightweight architecture to support fast iteration and easy review.
 
 ### Architectural Blueprint
-* **Frontend & Application Core:** Next.js (App Router) & TypeScript for static typing, predictable state management, and high-performance server-side rendering capability.
-* **Styling & Interface:** Tailwind CSS configured with a high-contrast palette (utilizing Federal Blue primary schemes) to align with baseline **Section 508 Accessibility** principles.
-* **AI Orchestration Layer:** Native Integration with OpenAI's Vision-capable API models via a secure serverless API Route (`app/api/extract/route.ts`).
-* **Data Strategy:** To maximize delivery speed for this sprint, the prototype operates as an **In-Memory Pipeline**. It does not bind to a persistence layer (Database), mitigating early-stage infrastructure friction.
+* **Frontend & Application Core:** Next.js and TypeScript.
+* **Styling & Interface:** Tailwind CSS.
+* **AI Orchestration Layer:** OpenAI vision-capable models are called through a secure API route (`app/api/extract/route.ts`).
+* **Data Strategy:** The prototype uses in-memory handling for this phase and does not depend on a database.
+
+### Engineering Tradeoffs & Prioritization
+
+To keep the prototype within the evaluation timeline, the following architectural tradeoffs were made:
+
+| Architectural Focus | Implementation Strategy |
+| --- | --- |
+| Data Persistence | In-memory execution only; no database or session caching. |
+| Identity / Access | Publicly accessible endpoint; no authentication layer. |
+| Data & Scope | Prioritized a single-image and single-application workflow to validate the AI vision pipeline and core comparison logic first. Future iterations can add batch processing, concurrent scaling, and more complex workflows. |
 ---
 
-## ⚖️ Engineering Tradeoffs & Prioritization
 
-To have the prototype within the evaluation timeline, below are the key architectural tradeoffs:
-| Architectural Focus  | Implementation Strategy                                |
-| **Data Persistence** | In-memory execution; no database or session caching.   | 
-| **Identity Access**  | Publicly accessible endpoint; no authentication layer. | 
-| **Data & Scope**     | Prioritizing a single-image and single-application workflow allows validation of the AI vision' and core logic, can later add complexity like concurrent scaling or batch processing |
----
+## User Flow
 
+1. Click **Choose File** to upload a label image.
+2. Enter **application values** manually, or click **Use demo data** to auto-fill the form with test values such as Brand Name = Stone's Throw and Net Contents = 750 mL.
+3. Click **Run analysis**.
+4. The app compares extracted values from the uploaded image against the submitted application values.
+5. The results pane shows field-by-field comparison results such as Match, Mismatch, or Needs Human Review.
 
-## How this App works
-
-1. Click "Choose File" to **upload a label image** (alcohol beverage label).
-2. Enter **Application Values** manually (or click to load demo data, e.g. Brand Name = Stone's; Net contents=750 mL ...etc).
-3. Click **"Run analysis"**
-4. The App will compare extracted values (from the uploaded image) against submitted values (Application Values).
-5. **Results pane**: will show field-by-field comparison and its result, e.g. matched, not matched, need human review..etc.
-
-If extraction is unavailable, the app can fall back to mock extracted values in non-production (or when forced by env var).
-The extraction route reads model output from the OpenAI Responses API path output[0].content[0].text and parses it into the extracted-field contract used by the app.
-This app is a decision-support to the human agent only, the agent makes final decision.
+- If extraction is unavailable, the app can fall back to mock extracted values in non-production.
+- The extraction route reads model output from the OpenAI Responses API path output[0].content[0].text and parses it into the extracted-field contract used by the app.
+- This app is a decision-support to the human agent only, the agent makes final decision.
 
 ## Extracted/comparison fields
 
@@ -57,7 +64,7 @@ This app is a decision-support to the human agent only, the agent makes final de
 - Government warning statement
 
 
-## To run this App locally in development environment
+## How to run this App locally in development environment
 Follow these steps to spin up the local development server.
 
 ### Prerequisites
@@ -85,21 +92,6 @@ npm run test
 npm run lint
 npm run build
 
-## Manual QA flow
-
-1. Click Use demo data or enter custom text.
-2. Upload any sample label image.
-3. Click Run analysis.
-4. Confirm comparison rows show Match, Likely Match, Mismatch, Missing, or Needs Human Review.
-5. Confirm Government Warning Validation shows:
-- Pass/Fail status
-- Confidence percentage
-- Exact warning text check
-- Uppercase GOVERNMENT WARNING check
-- Validation notes
-
-If extraction fails while fallback is allowed, confirm a user-facing fallback message appears and results still render.
-
 ## API keys and environment
 
 Real extraction requires an OpenAI API key.
@@ -113,47 +105,43 @@ Behavior:
 - Production expects real extraction (valid OPENAI_API_KEY).
 - Non-production allows mock fallback if extraction fails.
 
-## Technology stack
-
-- Next.js App Router
-- TypeScript
-- React
-- Tailwind CSS
-- Vitest
-- App Router API route for extraction: app/api/extract/route.ts
-- OpenAI Responses API (vision-capable model)
-- Mock extracted-data fallback for development
-- No authentication
-- No database
-
 ## Project structure
 
 app/
+- globals.css
+- layout.tsx
 - page.tsx
 - api/extract/route.ts
 
 components/
-- UploadForm.tsx
-- UploadSection.tsx
 - ApplicationForm.tsx
 - ResultsPanel.tsx
-- WarningValidationCard.tsx
+- UploadForm.tsx
+- UploadSection.tsx
 - WarningCheckCard.tsx
-
-lib/
-- normalize.ts
-- compare.ts
-
-utils/
-- normalization.ts
-- comparison.ts
-
-types/
-- label.ts
+- WarningValidationCard.tsx
 
 data/
 - mockData.ts
 - mockExtractedLabel.ts
+
+docs/
+- PRD.md
+
+lib/
+- compare.ts
+- normalize.ts
+
+tests/
+- compare.test.ts
+- normalize.test.ts
+
+types/
+- label.ts
+
+utils/
+- comparison.ts
+- normalization.ts
 
 ## Deployment
 
