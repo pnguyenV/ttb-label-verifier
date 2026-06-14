@@ -11,13 +11,12 @@ The App includes 2 **Sample Label shortcuts** right below the upload area. <br>C
 
 **Live System URL:** `https://ttb.myappnow.net`  
 **Core Specification:** [Product Requirements Document](docs/PRD.md)
-<br>
+<br><br>
 
 ## 🎯 Summary
 
 This system serves as a **Human-in-the-Loop Decision Support Tool**. It automates the repetitive extraction and textual tasks, highlighting discrepancies so human compliance experts can focus on complex edge-case evaluations and final determinations. 
-<br>
-<br>
+<br><br>
 
 ## Technical Architecture & Design Decisions
 
@@ -38,7 +37,7 @@ To keep the prototype within the evaluation timeline, the following architectura
 | Data Persistence | In-memory execution only; no database or session caching. |
 | Identity / Access | Publicly accessible endpoint; no authentication layer. |
 | Data & Scope | Prioritized a single-image and single-application workflow to validate the AI vision pipeline and core comparison logic first. Future iterations can add batch processing, concurrent scaling, and more complex workflows. |
----
+<br>
 
 
 ## User Flow
@@ -62,9 +61,9 @@ To keep the prototype within the evaluation timeline, the following architectura
 - Producer/bottler name
 - Country of origin
 - Government warning statement
+<br><br>
 
-
-## How to run this App locally in development environment
+## 💡 To run this App locally in development environment:
 Follow these steps to spin up the local development server.
 
 ### Prerequisites
@@ -81,7 +80,7 @@ npm install
 Create .env.local file in the project root if not already exists
 Replace your_openai_api_key_here with a valid OpenAI API key:  OPENAI_API_KEY=your_openai_api_key_here
 
-**Note**: the application requires a valid OpenAI API key and internet connectivity to perform OCR and label validation functions.
+**Note**: The application currently uses OpenAI Vision for label image extraction and requires a valid OpenAI API key and internet connectivity to perform OCR and label validation functions.  The Other vision-capable AI providers (for example, Anthropic, Google Gemini, or Azure OpenAI) could be integrated in the future with minimal changes.
 
 ### 3. Start the development server:
 npm run dev
@@ -98,7 +97,6 @@ Real extraction requires an OpenAI API key.
 
 Environment variables:
 - OPENAI_API_KEY: required for real AI extraction
-- OPENAI_VISION_MODEL: optional model override (route default is gpt-4.1-mini)
 - NEXT_PUBLIC_USE_MOCK_EXTRACTION: optional; set true to force mock fallback mode
 
 Behavior:

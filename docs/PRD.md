@@ -1,8 +1,8 @@
 # Product Requirements Document (PRD)
 
-# AI-Powered Alcohol Label Verification App: Phase 1 (Proof of concept version, named as "AI-Powered Label Verification Tool")
+# AI-Powered Alcohol Label Verification App: Phase 1 (Proof of concept version)
 
-Last updated: 2026-06-11
+Last updated: 2026-06-12
 
 ## Executive Summary
 
@@ -47,7 +47,7 @@ Compliance agents spend significant time manually verifying application data aga
 
 Provide a fast, intuitive review tool that extracts label information, compares it against application data, highlights discrepancies.
 
-### User Workflow for this Proof of concept version of the App:
+### User Workflow:
 
 1. User uploads a label image.
 2. User enters **application data** for comparison.
@@ -57,7 +57,7 @@ Provide a fast, intuitive review tool that extracts label information, compares 
 6. User reviews flagged discrepancies and makes the final determination.
 
 ### The App produce this Output Results
-An example of what the output results look like.  Users can review and make final decision per this table.
+An example of what the output results look like.  Users can review and make final decision.
 
 | Field                  | Application value  | Extracted value      | Result   | Confidence |
 | ---------------------- | ------------------ | -------------------- | -------- | ---------- |
@@ -101,7 +101,7 @@ Examples:
 "45% Alc./Vol." vs "45% Alc./Vol." → Match
 "45%" vs "40%" → Mismatch
 
-### Prototype Comparison Limitations
+### Prototype Limitations
 
 This proof-of-concept focuses on demonstrating AI extraction and comparison workflows rather than implementing a comprehensive normalization library for all possible field variations.
 
@@ -189,7 +189,7 @@ These scenarios remain subject to human review in Phase 1.
 | Stakeholder Insight            | Product Requirement       | Feature                 |
 |--------------------------------|---------------------------|-------------------------|
 | Manual review is repetitive    | Automated comparison      | Comparison Engine       |
-| Slow processing not acceptable | Response within 5 sec     | Optimized AI processing |
+| Slow processing not acceptable | Target response ~ 5 sec   | Optimized AI processing |
 | Human judgement is required    | User=final decision maker | Human in the loop       |
 | Users vary in technical ability| Simple UI                 | Single-page workflow    |
 | Exact matching is insufficient | Normalization             | Likely Match            |
