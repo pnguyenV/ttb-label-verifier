@@ -6,14 +6,14 @@ This repository contains a functional standalone prototype designed to evaluate 
 
 <br>
 
-### 💡 Quick-Start Tip: 
-The App includes 2 **Sample Label shortcuts** right below the upload area. <br>Click *Label 1* or *Label 2* to instantly download test label images.
+### Quick-Start Tip: 
+The App includes 2 **Sample Label links** below the upload area. <br>Click *Label 1* or *Label 2* to preview a test image in a newtab, then save it locally if you want to upload it for analysis.
 
 **Live System URL:** `https://ttb.myappnow.net`  
 **Core Specification:** [Product Requirements Document](docs/PRD.md)
 <br><br>
 
-## 🎯 Summary
+## Summary
 
 This system serves as a **Human-in-the-Loop Decision Support Tool**. It automates the repetitive extraction and textual tasks, highlighting discrepancies so human compliance experts can focus on complex edge-case evaluations and final determinations. 
 <br><br>
@@ -48,7 +48,7 @@ To keep the prototype within the evaluation timeline, the following architectura
 4. The app compares extracted values from the uploaded image against the submitted application values.
 5. The results pane shows field-by-field comparison results such as Match, Mismatch, or Needs Human Review.
 
-- If extraction is unavailable, the app can fall back to mock extracted values in non-production.
+- If extraction is unavailable, the app can fall back to mock extracted values in this version.
 - The extraction route reads model output from the OpenAI Responses API path output[0].content[0].text and parses it into the extracted-field contract used by the app.
 - This app is a decision-support to the human agent only, the agent makes final decision.
 
@@ -63,7 +63,7 @@ To keep the prototype within the evaluation timeline, the following architectura
 - Government warning statement
 <br><br>
 
-## 💡 To run this App locally in development environment:
+## To run this App locally in development environment:
 Follow these steps to spin up the local development server.
 
 ### Prerequisites
@@ -143,4 +143,4 @@ utils/
 
 ## Deployment
 
-This repository is Vercel-friendly and can be deployed directly as a standard Next.js application.
+This app can be run locally in a development environment or deployed through a cloud service.
