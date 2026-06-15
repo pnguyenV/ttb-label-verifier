@@ -37,6 +37,7 @@ To keep the prototype within the evaluation timeline, the following architectura
 | Data Persistence | In-memory execution only; no database or session caching. |
 | Identity / Access | Publicly accessible endpoint; no authentication layer. |
 | Data & Scope | Prioritized a single-image and single-application workflow to validate the AI vision pipeline and core comparison logic first. Future iterations can add batch processing, concurrent scaling, and more complex workflows. |
+| Government Warning Formatting | Validates warning text and uppercase "GOVERNMENT WARNING" presence, but does not currently detect bold formatting. |
 <br>
 
 

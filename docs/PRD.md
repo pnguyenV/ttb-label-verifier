@@ -65,8 +65,8 @@ An example of what the output results look like.  Users can review and make fina
 | Class/type designation | Red table Wine     | Red table wine       | Match    | 97%        |
 | Alcohol content        | 40                 | 13.5% alc vol        | Mismatch | 89%        |
 | Net contents           | 750 ML             | 750ML                | Match    | 99%        |
-| Producer/bottler name  | Solara Spirits CO. | Stones Throw Cellars | Mismatch | 86%        |
-| Country of origin      | Anytown, CA        | USA                  | Mismatch | 84%        |
+| Producer/bottler name  | Solara Spirits CO. | Solara Spirits CO.   | Match    | 100%       |
+| Country of origin      | Anytown, CA, US    | USA                  | Mismatch | 84%        |
 
 
 ## Functional Requirements
@@ -135,11 +135,11 @@ Current prototype limitation:
 - Simple to use UI.  People can understand and access the UI easily without so much effort looking for them.
 - Clear explanations of outcomes.
 - Human reviewer remains final decision maker.
-- Performance: fast response time, target under 5 seconds to evaluate a single image.
+- Performance: Fast response time; targets an average processing time of 5–10 seconds per image, acknowledging external LLM API variability.
     
 ## Acceptance Criteria
 
-* The system processes a valid label image and returns results within 5 seconds under normal conditions.
+* The system processes a valid label image and returns results within a target window of 5–10 seconds under normal API conditions.
 * The system extracts supported label fields and displays extracted values.
 * The system identifies matching and mismatching values between application data and label content.
 * The system validates the Government Health Warning Statement.
@@ -156,12 +156,14 @@ Current prototype limitation:
 - Confidence indicators
 
 ### Out of Scope
-- Authentication
+- Authentication & Authorization:** No user login, roles (e.g., Agent vs. Agent Manager), or multi-tenant permission controls.
 - Database
 - Camera to take picture, or automatic image enhancement and correction are out of scope for this prototype.
-- No batch upload/processing in phase 1
+- Batch upload/processing in phase 1
 - Production deployment
 - Audit trails, COLA integration, FedRAMP details
+- Strict Performance Sub-5-Second Guarantee: Due to reliance on third-party foundational Vision LLM APIs, a strict processing time of under 5 seconds cannot be guaranteed for every request in Phase 1. Real-time optimization, edge caching, and custom infrastructure hosting are out of scope.
+
 
 ### Prototype Simplifications
 
